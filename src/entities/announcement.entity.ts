@@ -7,8 +7,8 @@ import {
   PrimaryGeneratedColumn 
 } from "typeorm";
 
-@Entity("advert")
-export class Advert {
+@Entity("announcement")
+export class Announcement {
   @PrimaryGeneratedColumn("uuid")
   readonly id: string
 
@@ -35,15 +35,15 @@ export class Advert {
 
   // // RELAÇÃO COM ANUNCIOS EM LEILÃO
 
-  // @OneToMany((type) => AuctionAdvert, (auction) => auction.advert, {
+  // @OneToMany((type) => AuctionAnnouncement, (auction) => auction.announcement, {
   //   eager: true
   // })
   // @JoinTable()
-  // auctionAdverts: AuctionAdvert[]
+  // auctionAnnouncement: AuctionAnnouncement[]
 
   // // RELAÇÃO COM IMAGENS
 
-  // @OneToMany((type) => Image, (image) => image.advert, {
+  // @OneToMany((type) => Image, (image) => image.announcement, {
   //   eager: true
   // })
   // @JoinTable()
@@ -51,7 +51,7 @@ export class Advert {
 
   // // RELAÇÃO DE COMENTÁRIOS
 
-  // @ManyToOne((type) => Comment, (comment) => comment.advert, {
+  // @ManyToOne((type) => Comment, (comment) => comment.announcement, {
   //   eager: true
   // })
   // @JoinTable()
