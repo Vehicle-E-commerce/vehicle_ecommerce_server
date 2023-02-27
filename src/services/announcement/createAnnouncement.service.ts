@@ -1,7 +1,7 @@
 import { AppDataSource } from "../../data-source";
 import { Announcement } from "../../entities/announcement.entity";
 import AppError from "../../errors/appErrors";
-import { IAnnouncementRequest } from "../../interfaces";
+import { IAnnouncementRequest, IAnnouncementResponse } from "../../interfaces";
 
 export const createAnnouncementsService = async ({
   title,
@@ -11,15 +11,15 @@ export const createAnnouncementsService = async ({
   mileage,
   price,
   year,
-}: IAnnouncementRequest): Promise<Announcement> => {
+}: IAnnouncementRequest): Promise<IAnnouncementResponse> => {
   const announcementRepository = AppDataSource.getRepository(Announcement);
 
-  if (!title || !cover_image || bio || mileage || price || year) {
-    throw new AppError("Cannot make an empty post", 403);
+  if (!title || !cover_image || !bio || !mileage || !price || !year) {
+    throw new AppError("Cannot make an empty post", 400);
   }
 
   if (title === "" || cover_image === "" || bio === "") {
-    throw new AppError("Cannot make an empty post", 403);
+    throw new AppError("Cannot make an empty post", 400);
   }
 
   const newAnnouncements = announcementRepository.create({
