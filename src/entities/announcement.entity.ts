@@ -31,7 +31,7 @@ export class Announcement {
   is_motorbike: boolean
 
   @Column({ default: false })
-  cover_image: boolean
+  cover_image: string
 
   // // RELAÇÃO COM ANUNCIOS EM LEILÃO
 
