@@ -1,0 +1,243 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "API de Veículos",
+    "description": "Documentação da API",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "/api"
+    }
+  ],
+  "paths": {
+    "/announcement": {
+      "post": {
+        "summary": "Cria um novo anúncio",
+        "description": "Cria um novo anúncio com as informações fornecidas",
+        "tags": ["Announcement"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Announcement"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Anúncio criado com sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "$ref": "#/components/schemas/Announcement"
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "summary": "Lista todos os anúncios",
+        "description": "Retorna uma lista de todos os anúncios cadastrados",
+        "responses": {
+          "200": {
+            "description": "Lista de anúncios recuperados com sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Announcement"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/announcement/{id}": {
+      "patch": {
+        "summary": "Atualiza um anúncio existente",
+        "description": "Atualiza um anúncio existente com as informações fornecidas",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "description": "ID do anúncio a ser atualizado",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Announcement"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Anúncio atualizado com sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Announcement"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Anúncio não encontrado"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Remove um anúncio existente",
+        "description": "Remove um anúncio existente com o ID fornecido",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "description": "ID do anúncio a ser removido",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Anúncio removido com sucesso"
+          },
+          "404": {
+            "description": "Anúncio não encontrado"
+          },
+          "/announcement/{id}/images": {
+            "post": {
+              "summary": "Adiciona uma imagem a um anúncio existente",
+              "description": "Adiciona uma nova imagem a um anúncio existente com o ID fornecido",
+              "parameters": [
+                {
+                  "in": "path",
+                  "name": "id",
+                  "description": "ID do anúncio ao qual a imagem será adicionada",
+                  "required": true,
+                  "schema": {
+                    "type": "string",
+                    "format": "uuid"
+                  }
+                }
+              ],
+              "requestBody": {
+                "required": true,
+                "content": {
+                  "multipart/form-data": {
+                    "schema": {
+                      "type": "object",
+                      "properties": {
+                        "image": {
+                          "type": "string",
+                          "format": "binary"
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "responses": {
+                "200": {
+                  "description": "Imagem adicionada com sucesso",
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "$ref": "#/components/schemas/Announcement"
+                      }
+                    }
+                  }
+                },
+                "404": {
+                  "description": "Anúncio não encontrado"
+                }
+              }
+            }
+          },
+          "/announcement/{id}/images/{imageId}": {
+            "delete": {
+              "summary": "Remove uma imagem de um anúncio existente",
+              "description": "Remove uma imagem de um anúncio existente com o ID fornecido",
+              "parameters": [
+                {
+                  "in": "path",
+                  "name": "id",
+                  "description": "ID do anúncio ao qual a imagem pertence",
+                  "required": true,
+                  "schema": {
+                    "type": "string",
+                    "format": "uuid"
+                  }
+                },
+                {
+                  "in": "path",
+                  "name": "imageId",
+                  "description": "ID da imagem a ser removida",
+                  "required": true,
+                  "schema": {
+                    "type": "string",
+                    "format": "uuid"
+                  }
+                }
+              ],
+              "responses": {
+                "204": {
+                  "description": "Imagem removida com sucesso"
+                },
+                "404": {
+                  "description": "Anúncio ou imagem não encontrados"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Announcement": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "description": "ID do anúncio"
+          },
+          "title": {
+            "type": "string",
+            "description": "Título do anúncio"
+          },
+          "description": {
+            "type": "string",
+            "description": "Descrição do anúncio"
+          },
+          "price": {
+            "type": "number",
+            "format": "double",
+            "description": "Preço do anúncio"
+          }
+        }
+      }
+    }
+  }
+}
