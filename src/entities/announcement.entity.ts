@@ -1,60 +1,41 @@
-import { 
-  Column, 
-  Entity, 
-  JoinTable, 
-  ManyToOne, 
-  OneToMany, 
-  PrimaryGeneratedColumn 
-} from "typeorm";
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { Comments } from "./comments.entity";
+import { Images } from "./images.entity";
 
 @Entity("announcement")
 export class Announcement {
   @PrimaryGeneratedColumn("uuid")
-  readonly id: string
+  readonly id: string;
 
   @Column({ length: 24 })
-  title: string
+  title: string;
 
   @Column()
-  year: number
+  year: number;
 
   @Column()
-  mileage: number
+  mileage: number;
 
   @Column()
-  price: number
+  price: number;
 
   @Column({ length: 255 })
-  bio: string
+  bio: string;
 
   @Column({ default: false })
-  is_motorbike: boolean
+  is_motorbike: boolean;
 
   @Column({ default: false })
-  cover_image: string
+  cover_image: string;
 
-  // // RELAÇÃO COM ANUNCIOS EM LEILÃO
+  @OneToMany(() => Images, (images) => images.announcement, {
+    eager: true,
+  })
+  images: Images[];
 
-  // @OneToMany((type) => AuctionAnnouncement, (auction) => auction.announcement, {
-  //   eager: true
-  // })
-  // @JoinTable()
-  // auctionAnnouncement: AuctionAnnouncement[]
-
-  // // RELAÇÃO COM IMAGENS
-
-  // @OneToMany((type) => Image, (image) => image.announcement, {
-  //   eager: true
-  // })
-  // @JoinTable()
-  // images: Image[]
-
-  // // RELAÇÃO DE COMENTÁRIOS
-
-  // @ManyToOne((type) => Comment, (comment) => comment.announcement, {
-  //   eager: true
-  // })
-  // @JoinTable()
-  // comments: Comment[]
+  @OneToMany(() => Comments, (comment) => comment.announcement, {
+    eager: true,
+  })
+  comments: Comments[];
 
 }
