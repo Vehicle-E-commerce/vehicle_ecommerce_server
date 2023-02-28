@@ -6,7 +6,7 @@ export class Address {
   readonly id: string;
 
   @Column({ length: 8 })
-  cep: number;
+  cep: string;
 
   @Column({ length: 24 })
   state: string;
@@ -18,7 +18,7 @@ export class Address {
   road: string;
 
   @Column({ length: 10 })
-  number: number;
+  number: string;
 
   @Column({ length: 50 })
   complement: string;

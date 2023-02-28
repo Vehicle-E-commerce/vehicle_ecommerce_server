@@ -17,3 +17,25 @@ export interface IAnnouncementRequest {
   is_motorbike: boolean;
   cover_image: string;
 }
+
+export interface IUser {
+  name: string;
+  email: string;
+  cpf: string;
+  telephone: string;
+  birth_date: string;
+  bio: string;
+  is_advertiser: boolean;
+  password: string;
+  confirm_password: string;
+  address: IAddress;
+}
+
+export interface IAddress {
+  cep: string;
+  state: string;
+  city: string;
+  road: string;
+  number: string;
+  complement: string;
+}

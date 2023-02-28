@@ -1,6 +1,7 @@
 import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 import { Announcement } from "./announcement.entity";
-import { User } from "./user.entity";
+import User from "./user.entity";
+
 
 @Entity("comments")
 export class Comments {
