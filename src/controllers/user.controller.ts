@@ -1,36 +1,12 @@
 import { Request, Response } from "express";
-import { createUsersService } from "../services/user/createUserService";
+import { createUsersService } from "../services/user/createUser.service";
 
 const createUsersController = async (req: Request, res: Response) => {
-    const {
-      name,
-      cpf,
-      email,
-      telephone,
-      address,
-      bio,
-      birth_date,
-      confirm_password,
-      is_advertiser,
-      password,
-      address_id,
-    } = req.body;
+  const data = req.body;
   
-    const createUsers = await createUsersService({
-      name,
-      cpf,
-      email,
-      telephone,
-      address,
-      bio,
-      birth_date,
-      confirm_password,
-      is_advertiser,
-      password,
-      address_id,
-    });
+  const createUsers = await createUsersService(data);
   
-    return res.status(201).json(createUsers);
-  };
+  return res.status(201).json(createUsers);
+};
 
-  export default createUsersController
+export default createUsersController
