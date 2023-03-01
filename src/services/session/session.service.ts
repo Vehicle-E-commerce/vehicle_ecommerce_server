@@ -4,9 +4,9 @@ import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import "dotenv/config";
 
-import { User } from "../../entities/user.entity";
-
 import { ISessionRequest } from "../../interfaces/session";
+import User from "../../entities/user.entity";
+
 
 const sessionService = async({ email, password }: ISessionRequest): Promise<string> => {
   const userRepository = AppDataSource.getRepository(User);

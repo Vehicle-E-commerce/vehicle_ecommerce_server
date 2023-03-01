@@ -1,7 +1,7 @@
 import { AppDataSource } from "../../data-source";
 import { Announcement } from "../../entities/announcement.entity";
 import { Comments } from "../../entities/comments.entity";
-import { User } from "../../entities/user.entity";
+import  User  from "../../entities/user.entity";
 import AppError from "../../errors/appErrors";
 import { ICommentRequest, ICommentResponse } from "../../interfaces/comments";
 

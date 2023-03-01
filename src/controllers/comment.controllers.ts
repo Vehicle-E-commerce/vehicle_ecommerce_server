@@ -8,9 +8,9 @@ import { updateCommentService } from "../services/comments/updateComment.service
 export const createCommentController = async (req: Request, res: Response) => {
     const {comment} = req.body
     const announcement_id = req.params.id
-    const user_id = req.user.id
+    const id = req.user.id
     
-    const createdComment = await createCommentService({comment, announcement_id, user_id})
+    const createdComment = await createCommentService({comment, announcement_id, user_id: id})
 
     return res.status(201).json(createdComment)
 }
