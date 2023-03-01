@@ -28,14 +28,10 @@ export class Announcement {
   @Column({ default: false })
   cover_image: string;
 
-  @OneToMany(() => Images, (images) => images.announcement, {
-    eager: true,
-  })
+  @OneToMany(() => Images, (images) => images.announcement)
   images: Images[];
 
-  @OneToMany(() => Comments, (comment) => comment.announcement, {
-    eager: true,
-  })
+  @OneToMany(() => Comments, (comment) => comment.announcement)
   comments: Comments[];
 
 }

@@ -57,9 +57,7 @@ class User {
   @JoinColumn({ name: "address_id" })
   address_id: string;
 
-  @OneToMany(() => Comments, (comment) => comment.announcement, {
-    eager: true,
-  })
+  @OneToMany(() => Comments, (comment) => comment.announcement)
   comments: Comments[];
 }
 
