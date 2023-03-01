@@ -1,6 +1,5 @@
 import { Announcement } from "../../entities/announcement.entity";
-import  User  from "../../entities/user.entity";
-import { Comments } from "../../entities/comments.entity";
+import { User } from "../../entities/user.entity";
 
 export interface ICommentRequest {
     comment: string;

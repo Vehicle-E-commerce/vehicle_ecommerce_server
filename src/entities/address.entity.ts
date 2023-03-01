@@ -1,4 +1,8 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { 
+  Column,
+  Entity,
+  PrimaryGeneratedColumn
+} from "typeorm";
 
 @Entity("address")
 export class Address {
@@ -6,7 +10,7 @@ export class Address {
   readonly id: string;
 
   @Column()
-  cep: number;
+  cep: string;
 
   @Column({ length: 24 })
   state: string;
@@ -18,7 +22,7 @@ export class Address {
   road: string;
 
   @Column()
-  number: number;
+  number: string;
 
   @Column({ length: 50 })
   complement: string;

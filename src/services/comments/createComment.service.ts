@@ -1,11 +1,14 @@
 import { AppDataSource } from "../../data-source";
+
 import { Announcement } from "../../entities/announcement.entity";
 import { Comments } from "../../entities/comments.entity";
-import  User  from "../../entities/user.entity";
-import AppError from "../../errors/appErrors";
-import { ICommentRequest, ICommentResponse } from "../../interfaces/comments";
+import { User } from "../../entities/user.entity";
 
-export const createCommentService = async ({ 
+import { ICommentRequest, ICommentResponse } from "../../interfaces/comment";
+
+import AppError from "../../errors/appErrors";
+
+export const createCommentService = async ({
   comment,
   announcement_id,
   user_id
@@ -14,12 +17,12 @@ export const createCommentService = async ({
   const userRepository = AppDataSource.getRepository(User);
   const announcementRepository = AppDataSource.getRepository(Announcement);
 
-  const user = await userRepository.findOneBy({id: user_id})
-  const announcement = await announcementRepository.findOneBy({id: announcement_id})
-  
+  const user = await userRepository.findOneBy({ id: user_id })
+  const announcement = await announcementRepository.findOneBy({ id: announcement_id })
+
   if (!comment || comment == "") { throw new AppError("Cannot make an empty comment", 400) }
-  if(!user){ throw new AppError("User not found", 404) };
-  if(!announcement){ throw new AppError("Announcement not found", 404) };
+  if (!user) { throw new AppError("User not found", 404) };
+  if (!announcement) { throw new AppError("Announcement not found", 404) };
 
   const newComment = commentRepository.create({
     comment,
@@ -33,6 +36,6 @@ export const createCommentService = async ({
       id: newComment.id,
     },
   });
-  
+
   return createdComment[0];
 };

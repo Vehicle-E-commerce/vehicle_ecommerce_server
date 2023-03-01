@@ -1,4 +1,3 @@
-import { IsEmail } from "class-validator";
 import {
   Column,
   CreateDateColumn,
@@ -9,11 +8,15 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from "typeorm";
-import { Address } from "./address.entity";
+
+import { Announcement } from "./announcement.entity";
 import { Comments } from "./comments.entity";
+import { Exclude } from "class-transformer"; 
+import { Address } from "./address.entity";
+import { IsEmail } from "class-validator";
 
 @Entity("user")
-class User {
+export class User {
   @PrimaryGeneratedColumn("uuid")
   readonly id: string;
 
@@ -24,11 +27,9 @@ class User {
   @IsEmail()
   email: string;
 
-  @Column({ length: 60, select: false })
+  @Column({ length: 60 })
+  @Exclude()
   password: string;
-
-  @Column({ length: 60, select: false })
-  confirm_password: string;
 
   @Column({ length: 11 })
   cpf: string;
@@ -57,8 +58,10 @@ class User {
   @JoinColumn({ name: "address_id" })
   address_id: string;
 
+  @OneToMany(()=> Announcement, announcement => announcement.user)
+  announcements: Announcement[]
+
   @OneToMany(() => Comments, (comment) => comment.announcement)
   comments: Comments[];
 }
 
-export default User

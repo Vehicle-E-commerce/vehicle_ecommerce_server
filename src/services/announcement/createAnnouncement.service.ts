@@ -1,8 +1,11 @@
 import { AppDataSource } from "../../data-source";
+
 import { Announcement } from "../../entities/announcement.entity";
 import { Images } from "../../entities/images.entity";
+
+import { IAnnouncementRequest } from "../../interfaces/announcement";
+
 import AppError from "../../errors/appErrors";
-import { IAnnouncementRequest } from "../../interfaces";
 
 export const createAnnouncementsService = async ({
   title,

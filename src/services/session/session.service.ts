@@ -1,14 +1,16 @@
 import { AppDataSource } from "../../data-source";
+
+import { ISessionRequest } from "../../interfaces/session";
+import { User } from "../../entities/user.entity";
+
 import AppError from "../../errors/appErrors";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import "dotenv/config";
 
-import { ISessionRequest } from "../../interfaces/session";
-import User from "../../entities/user.entity";
 
 
-const sessionService = async({ email, password }: ISessionRequest): Promise<string> => {
+export const sessionService = async({ email, password }: ISessionRequest): Promise<string> => {
   const userRepository = AppDataSource.getRepository(User);
   const user = await userRepository.findOneBy({ email });
 
@@ -23,5 +25,3 @@ const sessionService = async({ email, password }: ISessionRequest): Promise<stri
 
   return token;
 };
-
-export default sessionService;

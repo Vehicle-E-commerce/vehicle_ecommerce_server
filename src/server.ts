@@ -1,6 +1,5 @@
 import app from "./app";
 import { AppDataSource } from "./data-source";
-import swaggerUI from "swagger-ui-express"
 
 ( async () => {
     await AppDataSource.initialize()

@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from "express";
 import AppError from "../errors/appErrors";
 
-const handleErrorMidleware = async(error: Error, req:Request, res:Response, next: NextFunction)=>{
+export const handleErrorMidleware = async(error: Error, req:Request, res:Response, next: NextFunction)=>{
   if(error instanceof AppError){
     return res.status(error.statusCode).json({
       message: error.message
@@ -12,5 +12,3 @@ const handleErrorMidleware = async(error: Error, req:Request, res:Response, next
     message: "Internal server error"
   })
 };
-
-export default handleErrorMidleware;

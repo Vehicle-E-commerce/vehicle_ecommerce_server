@@ -1,12 +1,15 @@
 import { AppDataSource } from "../../data-source";
+
 import { Address } from "../../entities/address.entity";
-import User from "../../entities/user.entity";
+import { User } from "../../entities/user.entity";
+
+import { IUserUpdate } from "../../interfaces/user";
+import { hashSync } from "bcrypt";
+
 import AppError from "../../errors/appErrors";
-import { IUserUpdate } from "../../interfaces";
 
 
 export const updateUsersService = async ({
-    id,
     name,
     cpf,
     email,
@@ -14,9 +17,9 @@ export const updateUsersService = async ({
     address,
     bio,
     birth_date,
-    confirm_password,
     is_advertiser,
     password,
+    id
   }: IUserUpdate) => {
     const userRepository = AppDataSource.getRepository(User)
     const addressRepository = AppDataSource.getRepository(Address)
@@ -56,9 +59,8 @@ export const updateUsersService = async ({
         address_id: address.id || updateAddress?.id,
         bio: bio || user.bio,
         birth_date: birth_date || user.birth_date,
-        confirm_password: confirm_password || user.confirm_password,
         is_advertiser: is_advertiser || user.is_advertiser,
-        password: password || user.password,
+        password: hashSync(password, 10) || user.password,
     })
 
     const userUpdate = await userRepository.findOneBy({id})

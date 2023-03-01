@@ -1,9 +1,12 @@
-import { hashSync } from "bcrypt";
 import { AppDataSource } from "../../data-source";
+
 import { Address } from "../../entities/address.entity";
-import User from "../../entities/user.entity";
+import { User } from "../../entities/user.entity";
+
+import { IUser } from "../../interfaces/user";
+import { hashSync } from "bcrypt";
+
 import AppError from "../../errors/appErrors";
-import { IUser} from "../../interfaces";
 
 export const createUsersService = async ({
     name,
@@ -13,7 +16,6 @@ export const createUsersService = async ({
     address,
     bio,
     birth_date,
-    confirm_password,
     is_advertiser,
     password,
   }: IUser): Promise<User> => {
@@ -21,7 +23,7 @@ export const createUsersService = async ({
     
     const addressData = AppDataSource.getRepository(Address)
 
-    if (!name || !cpf || !bio || !birth_date || !email || !address || !is_advertiser || !telephone || !confirm_password || !password) {
+    if (!name || !cpf || !bio || !birth_date || !email || !address || !telephone || !password) {
         throw new AppError("Cannot make an empty post", 400);
     }
 
@@ -55,7 +57,6 @@ export const createUsersService = async ({
         email,
         telephone,
         password: hashSync(password, 10),
-        confirm_password,
         is_advertiser,
         birth_date,
         address_id: addressReturn[0].id,

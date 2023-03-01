@@ -1,52 +1,38 @@
 import { Request, Response } from "express";
+import { instanceToPlain } from "class-transformer";
+
 import { createAnnouncementsService } from "../services/announcement/createAnnouncement.service";
 import { deleteAnnouncementService } from "../services/announcement/deleteAnnouncement.service";
-import { listAnnouncementsService } from "../services/announcement/listAnnouncement.service";
 import { updateAnnouncementService } from "../services/announcement/updateAnnouncement.service";
+import { listAnnouncementsService } from "../services/announcement/listAnnouncement.service";
 
-const createAnnouncementsController = async (req: Request, res: Response) => {
+export const createAnnouncementsController = async (req: Request, res: Response) => {
   const data = req.body;
 
   const createAnnouncement = await createAnnouncementsService(data);
 
-  return res.status(201).json(createAnnouncement);
+  return res.status(201).json(instanceToPlain(createAnnouncement));
 };
 
-const listAnnouncementsController = async (req: Request, res: Response) => {
+export const listAnnouncementsController = async (req: Request, res: Response) => {
   const announcements = await listAnnouncementsService();
 
-  return res.json(announcements);
+  return res.json(instanceToPlain(announcements));
 };
 
-const updateAnnouncementController = async (req: Request, res: Response) => {
-  const { title, year, mileage, price, bio, is_motorbike, cover_image } =
-    req.body;
+export const updateAnnouncementController = async (req: Request, res: Response) => {
+  const updateData = req.body;
   const id = req.params.id;
 
-  const announcementToUpdate = await updateAnnouncementService({
-    id,
-    title,
-    year,
-    mileage,
-    price,
-    bio,
-    is_motorbike,
-    cover_image,
-  });
+  const announcementToUpdate = await updateAnnouncementService(updateData);
 
-  return res.json(announcementToUpdate);
+  return res.json(instanceToPlain(instanceToPlain(announcementToUpdate)));
 };
 
-const deleteAnnouncementController = async (req: Request, res: Response) => {
+export const deleteAnnouncementController = async (req: Request, res: Response) => {
   const id = req.params.id;
   await deleteAnnouncementService(id);
 
-  return res.json({ message: "Announcement deleted!" });
+  return res.status(204).json({ message: "Announcement deleted!" });
 };
 
-export {
-  createAnnouncementsController,
-  listAnnouncementsController,
-  updateAnnouncementController,
-  deleteAnnouncementController,
-};

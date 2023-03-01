@@ -6,9 +6,11 @@ import sessionRoutes from "./session.routes";
 import { imageRoutes } from "./images.routes";
 
 export const appRoutes = (app: Express) => {
-    app.use("/announcement", announcementRoutes);
     app.use("/user", userRoutes)
-    app.use("/announcement/:id/comments", commentsRoutes);
-    app.use("/images", imageRoutes);
     app.use("/login", sessionRoutes);
+    
+    app.use("/announcements", announcementRoutes);
+    app.use("/announcement", commentsRoutes);
+    app.use("/images", imageRoutes);
+    
 };

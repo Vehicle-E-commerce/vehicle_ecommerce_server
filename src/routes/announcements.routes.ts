@@ -1,4 +1,5 @@
 import { Router } from "express";
+
 import {
   createAnnouncementsController,
   deleteAnnouncementController,
@@ -6,9 +7,12 @@ import {
   updateAnnouncementController,
 } from "../controllers/announcement.controller";
 
+import { authTokenMiddleware } from "../middlewares/authToken.middleware";
+
 export const announcementRoutes = Router();
 
-announcementRoutes.post("/", createAnnouncementsController);
 announcementRoutes.get("/", listAnnouncementsController);
-announcementRoutes.patch("/:id", updateAnnouncementController);
-announcementRoutes.delete("/:id", deleteAnnouncementController);
+
+announcementRoutes.post("/", authTokenMiddleware, createAnnouncementsController);
+announcementRoutes.patch("/:id", authTokenMiddleware, updateAnnouncementController);
+announcementRoutes.delete("/:id", authTokenMiddleware, deleteAnnouncementController);

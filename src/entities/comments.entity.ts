@@ -1,6 +1,15 @@
-import { Column, CreateDateColumn, Entity, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { 
+  Column, 
+  CreateDateColumn, 
+  Entity, 
+  ManyToOne, 
+  PrimaryGeneratedColumn, 
+  UpdateDateColumn 
+} from "typeorm";
+
 import { Announcement } from "./announcement.entity";
-import User from "./user.entity";
+import { User } from "./user.entity";
+
 
 
 @Entity("comments")

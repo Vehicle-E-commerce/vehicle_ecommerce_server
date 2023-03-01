@@ -1,7 +1,9 @@
 import { AppDataSource } from "../../data-source";
+
 import { Announcement } from "../../entities/announcement.entity";
+import { IAnnouncementUpdate } from "../../interfaces/announcement";
+
 import AppError from "../../errors/appErrors";
-import { IAnnouncementUpdate } from "../../interfaces";
 
 
 export const updateAnnouncementService = async({

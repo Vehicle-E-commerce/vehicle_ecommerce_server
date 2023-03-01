@@ -1,6 +1,15 @@
-import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { 
+  Column, 
+  Entity, 
+  ManyToOne, 
+  OneToMany, 
+  PrimaryGeneratedColumn
+} from "typeorm";
+
 import { Comments } from "./comments.entity";
 import { Images } from "./images.entity";
+import { User } from "./user.entity";
+
 
 @Entity("announcement")
 export class Announcement {
@@ -27,6 +36,9 @@ export class Announcement {
 
   @Column({ default: false })
   cover_image: string;
+
+  @ManyToOne(()=> User, {eager: true})
+  user: User
 
   @OneToMany(() => Images, (images) => images.announcement)
   images: Images[];

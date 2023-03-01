@@ -1,7 +1,7 @@
 import { AppDataSource } from "../../data-source";
 import { Images } from "../../entities/images.entity";
 
-const createImageService = async ({
+export const createImageService = async ({
   image,
   announcement,
 }: Images): Promise<Images> => {
@@ -16,5 +16,3 @@ const createImageService = async ({
 
   return imageCreate;
 };
-
-export default createImageService;

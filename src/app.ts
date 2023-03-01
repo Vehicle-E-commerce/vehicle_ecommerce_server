@@ -1,12 +1,13 @@
-import "express-async-errors";
 import express from "express";
-import cors from "cors";
+import "express-async-errors";
 import "reflect-metadata";
-import swaggerUI from "swagger-ui-express"
-import swaggerDocument from "../swagger.json"
+import cors from "cors";
 
+import swaggerDocument from "../swagger.json"
+import swaggerUI from "swagger-ui-express"
+
+import { handleErrorMidleware } from "./middlewares/handleError.midleware";
 import { appRoutes } from "./routes";
-import handleErrorMidleware from "./middlewares/handleError.midleware";
 
 
 const app = express()
