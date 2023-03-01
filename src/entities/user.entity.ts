@@ -58,9 +58,7 @@ export class User {
   @JoinColumn({ name: "address_id" })
   address: Address;
 
-  @OneToMany(() => Comments, (comment) => comment.announcement, {
-    eager: true,
-  })
+  @OneToMany(() => Comments, (comment) => comment.announcement)
   comments: Comments[];
 
   async setPassword(password: string): Promise<void> {

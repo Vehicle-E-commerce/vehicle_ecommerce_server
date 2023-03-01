@@ -1,3 +1,5 @@
+import { Images } from "../entities/images.entity";
+
 export interface IAnnouncementUpdate {
   id: string;
   title: string;
@@ -16,4 +18,5 @@ export interface IAnnouncementRequest {
   bio: string;
   is_motorbike: boolean;
   cover_image: string;
+  images?: string[];
 }

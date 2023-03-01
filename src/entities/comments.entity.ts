@@ -10,9 +10,13 @@ export class Comments {
   @Column({ length: 255 })
   comment: string;
 
-  @ManyToOne(() => Announcement, (announcement) => announcement.comments)
+  @ManyToOne(() => Announcement, (announcement) => announcement.comments, {
+    eager: true,
+  })
   announcement: Announcement;
 
-  @ManyToOne(() => User, (user) => user.comments)
+  @ManyToOne(() => User, (user) => user.comments, {
+    eager: true,
+  })
   user: User;
 }
