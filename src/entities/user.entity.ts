@@ -1,4 +1,3 @@
-import bcrypt from "bcrypt";
 import { IsEmail } from "class-validator";
 import {
   Column,
@@ -14,7 +13,7 @@ import { Address } from "./address.entity";
 import { Comments } from "./comments.entity";
 
 @Entity("user")
-export class User {
+class User {
   @PrimaryGeneratedColumn("uuid")
   readonly id: string;
 
@@ -56,17 +55,10 @@ export class User {
     eager: true,
   })
   @JoinColumn({ name: "address_id" })
-  address: Address;
+  address_id: string;
 
   @OneToMany(() => Comments, (comment) => comment.announcement)
   comments: Comments[];
-
-  async setPassword(password: string): Promise<void> {
-    const hashedPassword = 10;
-    this.password = await bcrypt.hash(password, hashedPassword);
-  }
-
-  async checkPassword(password: string): Promise<boolean> {
-    return bcrypt.compare(password, this.password);
-  }
 }
+
+export default User

@@ -1,10 +1,14 @@
 import { Express } from "express";
 import { announcementRoutes } from "./announcements.routes";
-import { HelloRoutes } from "./helloWord.routes";
+import { userRoutes } from "./user.routes";
+import { commentsRoutes } from "./comments.routes";
+import sessionRoutes from "./session.routes";
 import { imageRoutes } from "./images.routes";
 
 export const appRoutes = (app: Express) => {
-  app.use("/", HelloRoutes());
-  app.use("/announcement", announcementRoutes);
-  app.use("/images", imageRoutes);
+    app.use("/announcement", announcementRoutes);
+    app.use("/user", userRoutes)
+    app.use("/announcement/:id/comments", commentsRoutes);
+    app.use("/images", imageRoutes);
+    app.use("/login", sessionRoutes);
 };
