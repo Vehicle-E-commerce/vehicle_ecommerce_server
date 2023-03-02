@@ -55,8 +55,8 @@ export class User {
   @OneToOne(() => Address, {
     eager: true,
   })
-  @JoinColumn({ name: "address_id" })
-  address_id: string;
+  @JoinColumn({ name: "address" })
+  address: Address;
 
   @OneToMany(()=> Announcement, announcement => announcement.user)
   announcements: Announcement[]

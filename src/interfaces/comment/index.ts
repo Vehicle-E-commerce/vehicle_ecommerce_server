@@ -17,8 +17,8 @@ export interface ICommentResponse {
     comment: string;
     announcement: Announcement;
     user: User;
-    createdAt: Date,
-    updatedAt: Date,
+    created_at: Date,
+    updated_at: Date,
 }
 
 export interface ICommentListResponse {

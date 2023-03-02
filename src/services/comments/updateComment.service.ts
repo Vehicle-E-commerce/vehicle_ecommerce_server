@@ -4,19 +4,27 @@ import { Comments } from "../../entities/comments.entity";
 import { ICommentUpdate } from "../../interfaces/comment";
 
 import AppError from "../../errors/appErrors";
+import { User } from "../../entities/user.entity";
 
 export const updateCommentService = async ({
     updateComment,
     id
-}: ICommentUpdate): Promise<Comments> => {
+}: ICommentUpdate, user_id: string): Promise<Comments> => {
     const commentRepository = AppDataSource.getRepository(Comments)
-    const comment = await commentRepository.findOneBy({ id })
+    const userRepository = AppDataSource.getRepository(User)
 
-    if (!comment) { throw new AppError("Comment not found", 404) };
+    const comment = await commentRepository.findOneBy({id})
+    const user = await userRepository.findOneBy({id: user_id})
+
+    
+    if(!user){ throw new AppError("User not found", 404) };
+    if(!comment){ throw new AppError("Comment not found", 404) };
+    if(comment.user.id != user_id) { throw new AppError("You don't have permission", 403) }
+
+    if (updateComment === "") { throw new AppError("Comment cannot be empty", 400) };
 
     const newData = {
-        ...comment,
-        comment: updateComment
+       comment: updateComment
     }
 
     await commentRepository.update(id, newData)

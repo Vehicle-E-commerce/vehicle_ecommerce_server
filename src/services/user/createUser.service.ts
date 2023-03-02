@@ -59,7 +59,7 @@ export const createUsersService = async ({
         password: hashSync(password, 10),
         is_advertiser,
         birth_date,
-        address_id: addressReturn[0].id,
+        address: addressReturn[0],
     })
 
     await userData.save(newUser)

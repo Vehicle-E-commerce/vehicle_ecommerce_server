@@ -19,7 +19,6 @@ export const createCommentController = async (req: Request, res: Response) => {
 
 export const listCommentsController = async (req: Request, res: Response) => {
     const announcement_id = req.params.id
-    console.log(announcement_id)
     const listCommentsAnnouncment = await listCommentService(announcement_id)
 
     return res.status(200).json(instanceToPlain(listCommentsAnnouncment))
@@ -28,15 +27,18 @@ export const listCommentsController = async (req: Request, res: Response) => {
 export const updateCommentsController = async (req: Request, res: Response) => {
     const { comment } = req.body
     const id = req.params.id
+    const user_id = req.user.id
     
-    const updatedComment = await updateCommentService({ updateComment: comment, id})
+    const updatedComment = await updateCommentService({ updateComment: comment, id}, user_id)
 
     return res.status(200).json(instanceToPlain(updatedComment))
 };
 
 export const deleteCommentsController = async (req: Request, res: Response) => {
     const id = req.params.id
-    await deleteCommentService(id)
+    const user_id = req.user.id
 
-    return res.status(204)
+    await deleteCommentService(id, user_id)
+
+    return res.status(204).send()
 };

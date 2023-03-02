@@ -1,8 +1,10 @@
 import { 
   Column, 
+  CreateDateColumn, 
   Entity, 
   ManyToOne, 
-  PrimaryGeneratedColumn 
+  PrimaryGeneratedColumn, 
+  UpdateDateColumn
 } from "typeorm";
 
 import { Announcement } from "./announcement.entity";
@@ -19,4 +21,10 @@ export class Images {
     onDelete: "CASCADE",
   })
   announcement: Announcement;
+
+  @CreateDateColumn({ type: "date" })
+  created_at: Date;
+
+  @UpdateDateColumn({ type: "date" })
+  updated_at: Date;
 }

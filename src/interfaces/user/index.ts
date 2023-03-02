@@ -1,4 +1,4 @@
-import { IAddress, IAddressUpdate } from "../addresse";
+import { Address } from "../../entities/address.entity";
 
 export interface IUser {
     name: string;
@@ -9,7 +9,7 @@ export interface IUser {
     bio: string;
     is_advertiser: boolean;
     password: string;
-    address: IAddress;
+    address: Address;
 }
 
 export interface IUserUpdate {
@@ -22,5 +22,5 @@ export interface IUserUpdate {
     bio: string;
     is_advertiser: boolean;
     password: string;
-    address: IAddressUpdate;
+    address: Address;
 }

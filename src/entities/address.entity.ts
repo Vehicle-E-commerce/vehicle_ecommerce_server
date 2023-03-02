@@ -1,7 +1,9 @@
 import { 
   Column,
+  CreateDateColumn,
   Entity,
-  PrimaryGeneratedColumn
+  PrimaryGeneratedColumn,
+  UpdateDateColumn
 } from "typeorm";
 
 @Entity("address")
@@ -26,4 +28,10 @@ export class Address {
 
   @Column({ length: 50 })
   complement: string;
+
+  @CreateDateColumn({ type: "date" })
+  created_at: Date;
+
+  @UpdateDateColumn({ type: "date" })
+  updated_at: Date;
 }

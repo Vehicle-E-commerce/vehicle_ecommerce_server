@@ -4,6 +4,7 @@ import { Announcement } from "../../entities/announcement.entity";
 import { IAnnouncementUpdate } from "../../interfaces/announcement";
 
 import AppError from "../../errors/appErrors";
+import { User } from "../../entities/user.entity";
 
 
 export const updateAnnouncementService = async({
@@ -15,14 +16,16 @@ export const updateAnnouncementService = async({
   bio,
   is_motorbike,
   cover_image
-}: IAnnouncementUpdate) => {
+}: IAnnouncementUpdate, user_id: string) => {
   const announcementRepository = AppDataSource.getRepository(Announcement);
+  const userRepository = AppDataSource.getRepository(User);
 
   const announcement = await announcementRepository.findOneBy({id});
+  const user = await userRepository.findOneBy({id:user_id});
 
-  if(!announcement) {
-    throw new AppError("announcement not found", 404)
-  }
+  if(!user) { throw new AppError("User not found.", 404) }
+  if(!user.is_advertiser){ throw new AppError("You don't have permission", 403) }
+  if(!announcement) { throw new AppError("announcement not found", 404) }
 
   await announcementRepository.update(announcement.id, {
     title: title || announcement.title,

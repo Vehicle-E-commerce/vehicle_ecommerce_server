@@ -1,9 +1,11 @@
 import { 
   Column, 
+  CreateDateColumn, 
   Entity, 
   ManyToOne, 
   OneToMany, 
-  PrimaryGeneratedColumn
+  PrimaryGeneratedColumn,
+  UpdateDateColumn
 } from "typeorm";
 
 import { Comments } from "./comments.entity";
@@ -45,5 +47,11 @@ export class Announcement {
 
   @OneToMany(() => Comments, (comment) => comment.announcement)
   comments: Comments[];
+
+  @CreateDateColumn({ type: "date" })
+  created_at: Date;
+
+  @UpdateDateColumn({ type: "date" })
+  updated_at: Date;
 
 }

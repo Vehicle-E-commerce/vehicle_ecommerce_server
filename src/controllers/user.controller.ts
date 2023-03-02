@@ -22,7 +22,6 @@ export const listUserController = async (req: Request, res: Response) => {
 };
 
 export const deleteUserController = async (req: Request, res: Response) => {
-  // const id = req.params.id;
   const id = req.user.id;
   await deleteUserService(id);
 
@@ -31,12 +30,9 @@ export const deleteUserController = async (req: Request, res: Response) => {
 
 export const updateUserController = async (req: Request, res: Response) => {
   const userData = req.body
-
-  // const id = req.params.id
   const id = req.user.id
 
-
-  const userUpdate = await updateUsersService({...userData, id})
+  const userUpdate = await updateUsersService(userData, id)
 
   return res.json(instanceToPlain(userUpdate))
 }

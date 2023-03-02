@@ -6,6 +6,7 @@ import { Images } from "../../entities/images.entity";
 import { IAnnouncementRequest } from "../../interfaces/announcement";
 
 import AppError from "../../errors/appErrors";
+import { User } from "../../entities/user.entity";
 
 export const createAnnouncementsService = async ({
   title,
@@ -16,9 +17,20 @@ export const createAnnouncementsService = async ({
   price,
   year,
   images,
-}: IAnnouncementRequest): Promise<Announcement> => {
+}: IAnnouncementRequest, id: string): Promise<Announcement> => {
   const announcementRepository = AppDataSource.getRepository(Announcement);
+  const userReporitory = AppDataSource.getRepository(User)
+
   const imagesRepository = AppDataSource.getRepository(Images);
+  const user =  await userReporitory.findOneBy({id})
+
+  if(!user) {
+    throw new AppError("User not found.", 404)
+  }
+ 
+  if(!user.is_advertiser){
+    throw new AppError("You don't have permission", 403);
+  }
 
   if (!title || !cover_image || !bio || !mileage || !price || !year) {
     throw new AppError("Cannot make an empty post", 400);
@@ -36,6 +48,7 @@ export const createAnnouncementsService = async ({
     price,
     title,
     year,
+    user,
   });
 
   if (images) {
