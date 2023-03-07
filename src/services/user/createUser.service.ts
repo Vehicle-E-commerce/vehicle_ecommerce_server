@@ -30,7 +30,7 @@ export const createUsersService = async ({
     const userEmail = await userData.findOneBy({ email})
 
     if(userEmail){
-      throw new AppError("User email already exists");
+      throw new AppError("User email already exists", 404);
     }
 
     const newAddress = addressData.create({

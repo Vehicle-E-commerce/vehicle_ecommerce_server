@@ -216,6 +216,103 @@
           }
         }
       }
+    },
+    "/user": {
+      "post": {
+        "summary": "Cria um novo usuário",
+        "description": "Cria um novo usuário com as informações fornecidas",
+        "tags": ["User"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Usuário criado com sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "$ref": "#/components/schemas/UserResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Cannot make an empty post"
+          },
+          "404": {
+            "description": "User email already exists"
+          }
+        }
+      },
+      "get": {
+        "summary": "Dados do próprio usuário",
+        "description": "Retorna todos os dados do usuário",
+        "tags": ["User"],
+        "responses": {
+          "200": {
+            "description": "Dados recuperados com sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "$ref": "#/components/schemas/UserResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "User not found"
+          }
+        }
+      },
+      "patch": {
+        "summary": "Atualiza o próprio usuário",
+        "description": "Atualiza o usuário existente com informações fornecidas",
+        "tags": ["User"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref":"#/components/schemas/UserRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Usuário atualizado com sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "User not found"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Apaga a conta do usuário",
+        "description": "Apaga o próprio usuário",
+        "tags":["User"],
+        "responses": {
+          "204": {
+            "description": "Usuário apagado com sucesso"
+          }
+        }
+      }
     }
   },
   "components": {
@@ -331,6 +428,181 @@
           "cover_image": {
             "type": "string",
             "description": "Imagem capa do anúncio"
+          }
+        }
+      },
+      "UserResponse": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "description": "ID do usuário"
+          },
+          "name": {
+            "type": "string",
+            "description": "Nome do usuário",
+            "example": "Juliana Santos"
+          },
+          "email": {
+            "type": "string",
+            "description": "Email do usuário",
+            "example": "juliana@email.com"
+          },
+          "cpf": {
+            "type": "string",
+            "description": "CPF do usuário",
+            "example": "12345678910"
+          },
+          "telephone": {
+            "type": "string",
+            "description": "Contato do usuário",
+            "example": "92994939291"
+          },
+          "birth_date": {
+            "type": "string",
+            "description": "Data de nascimento do usuário",
+            "example": "2000-03-09"
+          },
+          "bio": {
+            "type": "string",
+            "description": "Descrição do usuário",
+            "example": "Este usuário é muito legal"
+          },
+          "is_advertiser": {
+            "type": "boolean",
+            "description": "Verificação se o usuário é anunciante"
+          },
+          "created_at": {
+            "type": "string",
+            "description": "Data de criação do usuário",
+            "example": "2023-03-03 12:16:30"
+          },
+          "updated_at": {
+            "type": "string",
+            "description": "Data de atualização do usuário",
+            "example": "2023-03-03 13:21:12"
+          },
+          "address": {
+            "type": "object",
+            "description": "Endereço do usuário",
+            "properties": {
+              "id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "cep": {
+                "type": "string",
+                "example": "69099000"
+              },
+              "state": {
+                "type": "string",
+                "example": "Amazonas"
+              },
+              "city": {
+                "type": "string",
+                "example": "Manaus"
+              },
+              "road": {
+                "type": "string",
+                "example": "Santa Margarida"
+              },
+              "number": {
+                "type": "string",
+                "example": "00"
+              },
+              "complement": {
+                "type": "string",
+                "example": "Casa"
+              },
+              "created_at": {
+                "type": "string",
+                "example": "2023-03-03 12:16:30"
+              },
+              "updated_at": {
+                "type": "string",
+                "example": "2023-03-03 12:16:30"
+              }
+            }
+          }
+        }
+      },
+      "UserRequest": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Nome do usuário",
+            "example": "Juliana Santos"
+          },
+          "email": {
+            "type": "string",
+            "description": "Email do usuário",
+            "example": "juliana@email.com"
+          },
+          "cpf": {
+            "type": "string",
+            "description": "CPF do usuário",
+            "example": "12345678910"
+          },
+          "telephone": {
+            "type": "string",
+            "description": "Contato do usuário",
+            "example": "92994939291"
+          },
+          "birth_date": {
+            "type": "string",
+            "description": "Data de nascimento do usuário",
+            "example": "2000-03-09"
+          },
+          "bio": {
+            "type": "string",
+            "description": "Descrição do usuário",
+            "example": "Este usuário é muito legal"
+          },
+          "is_advertiser": {
+            "type": "boolean",
+            "description": "Verificação se o usuário é anunciante"
+          },
+          "password": {
+            "type": "string",
+            "description": "Senha do usuário",
+            "example": "********"
+          },
+          "confirm_password": {
+            "type": "string",
+            "description": "Verificação se a senha está correta",
+            "example": "********"
+          },
+          "address": {
+            "type": "object",
+            "description": "Endereço do usuário",
+            "properties": {
+              "cep": {
+                "type": "string",
+                "example": "69099000"
+              },
+              "state": {
+                "type": "string",
+                "example": "Amazonas"
+              },
+              "city": {
+                "type": "string",
+                "example": "Manaus"
+              },
+              "road": {
+                "type": "string",
+                "example": "Santa Margarida"
+              },
+              "number": {
+                "type": "string",
+                "example": "00"
+              },
+              "complement": {
+                "type": "string",
+                "example": "Casa"
+              }
+            }
           }
         }
       }
