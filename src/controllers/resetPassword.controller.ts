@@ -1,6 +1,8 @@
 import { Request, Response } from "express";
-import { requestResetPasswordService } from "../services/resetPassword/requestResetPassword.service";
+
 import { validateResetPasswordService } from "../services/resetPassword/validateResetPassword.service";
+import { requestResetPasswordService } from "../services/resetPassword/requestResetPassword.service";
+import { changePasswordService } from "../services/resetPassword/changePassword.service";
 
 
 export const requestResetPasswordController = async (req: Request, res: Response) => {
@@ -12,8 +14,16 @@ export const requestResetPasswordController = async (req: Request, res: Response
 
 export const validateResetPasswordController = async (req: Request, res: Response) => {
     const { token } = req.params;
-
+    
     await validateResetPasswordService(token)
+    
+    res.status(200).json({ message: 'Form from reset password sent' });
+};
+export const changePasswordController = async (req: Request, res: Response) => {
+    const { token } = req.params;
+    const {password} = req.body;
+
+    await changePasswordService(token, password)
   
-    res.status(200).json({ message: 'Password reset email sent' });
+    res.status(200).json({ message: 'Change password sucess. Return from login !' });
 };

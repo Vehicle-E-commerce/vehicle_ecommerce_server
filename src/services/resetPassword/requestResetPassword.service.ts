@@ -8,23 +8,16 @@ import "dotenv/config";
 import { v4 as uuid } from 'uuid';
 import { sendPasswordResetEmail } from "../../utils/resetPassword.utils";
 
-
 export const requestResetPasswordService = async(email: string): Promise<string> => {
   const userRepository = AppDataSource.getRepository(User);
   const user = await userRepository.findOneBy({ email });
 
-  if (!user) { throw new AppError( "User not found" ) };
+  if (!user) { throw new AppError( "This email has not been registered" ) };
 
   const token = uuid();
 
-  const resetPassword = {
-    ...user,
-    resetPasswordToken: token,
-    resetPasswordExpires: new Date(Date.now() + 3600000)
-  }
-
   user.resetPasswordToken = token;
-  user.resetPasswordExpires = new Date(Date.now() + 3600000); 
+  user.resetPasswordExpires = new Date(Date.now() + 3600000)
 
   userRepository.save(user)
 

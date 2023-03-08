@@ -1,8 +1,9 @@
 import nodemailer from 'nodemailer';
+import hbs from "nodemailer-express-handlebars"
 import "dotenv/config"
+import path from 'path';
 
 export const sendPasswordResetEmail = async (email: string, token: string) => {
-  try {
     var transport = nodemailer.createTransport({
         host: "sandbox.smtp.mailtrap.io",
         port: 2525,
@@ -14,7 +15,7 @@ export const sendPasswordResetEmail = async (email: string, token: string) => {
     // const transport = nodemailer.createTransport({
     //   service: 'gmail',
     //   auth: {
-    //     user: process.env.EMAIL_USERNAME,
+    //     user: process.env.EMAIL_EMAIL,
     //     pass: process.env.EMAIL_PASSWORD,
     //   },
     // });
@@ -30,8 +31,10 @@ export const sendPasswordResetEmail = async (email: string, token: string) => {
       html: `<p>Clique no link a seguir para redefinir sua senha:</p><p><a href="${url}">${url}</a></p>`,
     };
 
-    await transport.sendMail(mailOptions);
-  } catch (error) {
-    console.error(error);
-  }
+    transport.sendMail(mailOptions, (err, info) => {
+      if(err)
+        console.log(err)
+      else
+        console.log(info);
+   });
 };

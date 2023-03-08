@@ -68,7 +68,7 @@ export class User {
   @Column({ nullable: true })
   resetPasswordToken: string;
 
-  @Column({ type: 'date', nullable: true })
+  @Column({ nullable: true })
   resetPasswordExpires: Date;
 }
 
