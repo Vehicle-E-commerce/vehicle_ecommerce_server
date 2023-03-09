@@ -63,5 +63,12 @@ export class User {
 
   @OneToMany(() => Comments, (comment) => comment.announcement)
   comments: Comments[];
+
+  // To reset password
+  @Column({ nullable: true })
+  resetPasswordToken: string;
+
+  @Column({ nullable: true })
+  resetPasswordExpires: Date;
 }
 
