@@ -4,24 +4,24 @@ import "dotenv/config"
 import path from 'path';
 
 export const sendPasswordResetEmail = async (email: string, token: string) => {
-    var transport = nodemailer.createTransport({
-        host: "sandbox.smtp.mailtrap.io",
-        port: 2525,
-        auth: {
-          user: "2287c39c5fccc7",
-          pass: "a08532b3e84eb1"
-        }
-      });
-    // const transport = nodemailer.createTransport({
-    //   service: 'gmail',
-    //   auth: {
-    //     user: process.env.EMAIL_EMAIL,
-    //     pass: process.env.EMAIL_PASSWORD,
-    //   },
-    // });
+    // var transport = nodemailer.createTransport({
+    //     host: "sandbox.smtp.mailtrap.io",
+    //     port: 2525,
+    //     auth: {
+    //       user: "2287c39c5fccc7",
+    //       pass: "a08532b3e84eb1"
+    //     }
+    //   });
+    const transport = nodemailer.createTransport({
+      service: 'gmail',
+      auth: {
+        user: process.env.EMAIL_EMAIL,
+        pass: process.env.EMAIL_PASSWORD,
+      },
+    });
     
 
-    const url = `http://localhost:3000/reset-password/${token}`;
+    const url = `http://localhost:5173/reset-password/${token}`;
 
     const mailOptions = {
       from: `${process.env.EMAIL_USERNAME} <${process.env.EMAIL_EMAIL}>`,
