@@ -16,8 +16,8 @@ export const createAnnouncementsController = async (req: Request, res: Response)
 };
 
 export const listAnnouncementsController = async (req: Request, res: Response) => {
-  const announcements = await listAnnouncementsService();
-
+    const announcement_id = req.params.id;
+  const announcements = await listAnnouncementsService(announcement_id);
   return res.json(instanceToPlain(announcements));
 };
 
