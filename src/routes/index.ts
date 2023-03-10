@@ -5,6 +5,7 @@ import { commentsRoutes } from "./comments.routes";
 import sessionRoutes from "./session.routes";
 import { imageRoutes } from "./images.routes";
 import resetPasswordRoute from "./resetPassword.routes";
+import { addressRoutes } from "./address.routes";
 
 export const appRoutes = (app: Express) => {
     app.use("/user", userRoutes)
@@ -14,5 +15,5 @@ export const appRoutes = (app: Express) => {
     app.use("/announcement", commentsRoutes);
     app.use("/images", imageRoutes);
     app.use("/forgot-password", resetPasswordRoute)
-    
+    app.use("/address", addressRoutes)
 };
